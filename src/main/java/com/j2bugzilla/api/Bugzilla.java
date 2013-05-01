@@ -28,4 +28,11 @@ public abstract class Bugzilla {
 		}
 	}
 	
+	/**
+	 * Retrieves a configured instance of {@link BugRepository} to allow consumers to make queries about
+	 * {@link Bug bugs}, create new bugs, or update existing bugs.
+	 * @return A {@code BugRepository} implementation provided by the bound SPI provider.
+	 */
+	public abstract BugRepository getBugRepository();
+	
 }
