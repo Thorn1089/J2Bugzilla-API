@@ -64,4 +64,31 @@ public abstract class Bugzilla {
 	 */
 	public abstract Set<String> getLegalValuesFor(GlobalFields field);
 	
+	/**
+	 * Gets the version of the remote Bugzilla installation.
+	 * @return A {@code String} representing the software version.
+	 */
+	public abstract String getVersion();
+	
+	/**
+	 * Retrieves the set of products the current user has access to.
+	 * @return A {@code Set} of {@link Product} objects.
+	 */
+	public abstract Set<Product> getAccessibleProducts();
+	
+	/**
+	 * Logs the given user in with the provided credentials. Subsequent requests will be made in the
+	 * context of that user's permissions. If called when a user is already logged in, the results are
+	 * implementation-specific and considered undefined.
+	 * @param user A {@code String} representing a username, typically as an email address.
+	 * @param pass A {@code String} representing the user's password.
+	 */
+	public abstract void logIn(String user, String pass);
+	
+	/**
+	 * Logs the current user out. Subsequent requests will be made anonymously. If called when no user is
+	 * logged in, the results are implementation-specific; however, implementations should attempt to ensure
+	 * this call is idempotent.
+	 */
+	public abstract void logOut();
 }
