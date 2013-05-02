@@ -35,4 +35,18 @@ public abstract class Bugzilla {
 	 */
 	public abstract BugRepository getBugRepository();
 	
+	/**
+	 * Retrieves a configured instance of {@link AttachmentRepository} to allow consumers to make queries
+	 * about {@link Attachment attachments} or upload new ones.
+	 * @return A {@code AttachmentRepository} implementation returned by the bound SPI provider.
+	 */
+	public abstract AttachmentRepository getAttachmentRepository();
+	
+	/**
+	 * Retrieves a configured instance of {@link CommentRepository} to allow consumers to make queries
+	 * about {@link Comment comments} or add new ones.
+	 * @return A {@code CommentRepository} implementation returned by the bound SPI provider.
+	 */
+	public abstract CommentRepository getCommentRepository();
+	
 }
