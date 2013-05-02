@@ -40,5 +40,11 @@ public interface ProductRepository {
 	 */
 	void update(Product product);
 	
-	//TODO get legal product-specific field values.
+	/**
+	 * Retrieves the legal values which can be assigned to the given field for the specified product.
+	 * @param field A {@link ProductField} to look up values for
+	 * @param product The {@link Product} to retrieve legal values in the context of.
+	 * @return A {@code Set} of {@code String} values for the field.
+	 */
+	Set<String> getLegalValuesFor(ProductFields field, Product product);
 }
