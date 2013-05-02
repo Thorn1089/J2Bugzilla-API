@@ -40,6 +40,10 @@ public interface BugRepository {
 	 */
 	void update(Bug bug);
 	
-	//TODO Search -- need to define a search params class
-	
+	/**
+	 * Searches for bugs matching <em>all</em> of the given {@link SearchParam search parameters}.
+	 * @param params A set of {@code SearchParam} objects to narrow results by.
+	 * @return A {@code Set} of matching {@link Bug bugs}.
+	 */
+	Set<Bug> search(SearchParam... params);
 }
