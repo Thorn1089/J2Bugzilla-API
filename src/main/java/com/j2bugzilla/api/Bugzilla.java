@@ -49,4 +49,11 @@ public abstract class Bugzilla {
 	 */
 	public abstract CommentRepository getCommentRepository();
 	
+	/**
+	 * Retrieves a configured instance of {@link ProductRepository} to allow consumers to make queries
+	 * about {@link Product products}, update existing or add new ones.
+	 * @return A {@code ProductRepository} implementation returned by the bound SPI provider.
+	 */
+	public abstract ProductRepository getProductRepository();
+	
 }
