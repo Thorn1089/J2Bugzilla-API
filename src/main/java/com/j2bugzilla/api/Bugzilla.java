@@ -1,6 +1,7 @@
 package com.j2bugzilla.api;
 
 import java.util.ServiceLoader;
+import java.util.Set;
 
 /**
  * The {@code Bugzilla} class is the entry point into the API. This class adheres to the SPI contract.
@@ -55,5 +56,12 @@ public abstract class Bugzilla {
 	 * @return A {@code ProductRepository} implementation returned by the bound SPI provider.
 	 */
 	public abstract ProductRepository getProductRepository();
+	
+	/**
+	 * Retrieves the legal values for the given field.
+	 * @param field A {@link GlobalFields field} to look up values for.
+	 * @return A {@code Set} of {@code Strings} which can be assigned to the given field.
+	 */
+	public abstract Set<String> getLegalValuesFor(GlobalFields field);
 	
 }

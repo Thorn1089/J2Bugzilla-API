@@ -42,7 +42,7 @@ public interface ProductRepository {
 	
 	/**
 	 * Retrieves the legal values which can be assigned to the given field for the specified product.
-	 * @param field A {@link ProductField} to look up values for
+	 * @param field A {@link ProductFields field} to look up values for
 	 * @param product The {@link Product} to retrieve legal values in the context of.
 	 * @return A {@code Set} of {@code String} values for the field.
 	 */
