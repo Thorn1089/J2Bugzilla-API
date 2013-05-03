@@ -1,5 +1,6 @@
 package com.j2bugzilla.api;
 
+import java.net.URI;
 import java.util.ServiceLoader;
 import java.util.Set;
 
@@ -28,6 +29,36 @@ public abstract class Bugzilla {
 			throw new IllegalStateException("No configured providers were found for Bugzilla");
 		}
 	}
+	
+	/**
+	 * Connects to the given host.
+	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
+	 */
+	public abstract void connectTo(String host);
+	
+	/**
+	 * Connects to the given host.
+	 * @param host A {@link URI} which points to the Bugzilla base.
+	 */
+	public abstract void connectTo(URI host);
+	
+	/**
+	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
+	 * not log you in with Bugzilla itself.
+	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
+	 * @param httpUser A {@code String} representing an HTTP Basic username.
+	 * @param httpPass A {@code String} representing an HTTP Basic password.
+	 */
+	public abstract void connectTo(String host, String httpUser, String httpPass);
+	
+	/**
+	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
+	 * not log you in with Bugzilla itself.
+	 * @param host A {@link URI} which points to the Bugzilla base.
+	 * @param httpUser A {@code String} representing an HTTP Basic username.
+	 * @param httpPass A {@code String} representing an HTTP Basic password.
+	 */
+	public abstract void connectTo(URI host, String httpUser, String httpPass);
 	
 	/**
 	 * Retrieves a configured instance of {@link BugRepository} to allow consumers to make queries about
