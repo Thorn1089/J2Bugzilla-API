@@ -12,8 +12,36 @@ public final class Bug {
 
 	private final Optional<Integer> id;
 	
+	private String priority;
+	
+	private String severity;
+	
+	private String alias;
+	
+	private String summary;
+	
+	private String product;
+	
+	private String component;
+	
+	private String version;
+	
+	private String status;
+	
+	private String resolution;
+	
+	private String operatingSystem;
+	
+	private String platform;
+	
+	//TODO Flags
+	
 	public Bug(int id) {
 		this.id = Optional.of(id);
+	}
+	
+	public Bug() {
+		this.id = Optional.absent();
 	}
 	
 	public Optional<Integer> getId() {
