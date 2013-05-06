@@ -12,27 +12,27 @@ public final class Bug {
 
 	private final Optional<Integer> id;
 	
-	private String priority;
+	private Optional<String> priority;
 	
-	private String severity;
+	private Optional<String> severity;
 	
-	private String alias;
+	private Optional<String> alias;
 	
-	private String summary;
+	private Optional<String> summary;
 	
-	private String product;
+	private Optional<String> product;
 	
-	private String component;
+	private Optional<String> component;
 	
-	private String version;
+	private Optional<String> version;
 	
-	private String status;
+	private Optional<String> status;
 	
-	private String resolution;
+	private Optional<String> resolution;
 	
-	private String operatingSystem;
+	private Optional<String> operatingSystem;
 	
-	private String platform;
+	private Optional<String> platform;
 	
 	//TODO Flags
 	
@@ -47,5 +47,94 @@ public final class Bug {
 	public Optional<Integer> getId() {
 		return id;
 	}
+	
+	public Optional<String> getPriority() {
+		return priority;
+	}
+	
+	public void setPriority(final String priority) {
+		this.priority = Optional.fromNullable(priority);
+	}
+
+	public Optional<String> getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = Optional.fromNullable(severity);
+	}
+
+	public Optional<String> getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = Optional.fromNullable(alias);
+	}
+
+	public Optional<String> getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = Optional.fromNullable(summary);
+	}
+
+	public Optional<String> getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = Optional.fromNullable(product);
+	}
+
+	public Optional<String> getComponent() {
+		return component;
+	}
+
+	public void setComponent(String component) {
+		this.component = Optional.fromNullable(component);
+	}
+
+	public Optional<String> getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = Optional.fromNullable(version);
+	}
+
+	public Optional<String> getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = Optional.fromNullable(status);
+	}
+
+	public Optional<String> getResolution() {
+		return resolution;
+	}
+
+	public void setResolution(String resolution) {
+		this.resolution = Optional.fromNullable(resolution);
+	}
+
+	public Optional<String> getOperatingSystem() {
+		return operatingSystem;
+	}
+
+	public void setOperatingSystem(String operatingSystem) {
+		this.operatingSystem = Optional.fromNullable(operatingSystem);
+	}
+
+	public Optional<String> getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = Optional.fromNullable(platform);
+	}
+	
 	
 }
