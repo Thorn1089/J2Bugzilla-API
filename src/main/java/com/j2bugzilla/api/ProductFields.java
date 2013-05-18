@@ -7,7 +7,13 @@ package com.j2bugzilla.api;
  * @author Tom
  */
 public enum ProductFields {
+	/**
+	 * Different modules within a product, such as 'database' or 'UI'.
+	 */
 	COMPONENT("component"), 
+	/**
+	 * Versions of a product, such as '3.1' or '95'.
+	 */
 	VERSION("version");
 	
 	private String internalName;
