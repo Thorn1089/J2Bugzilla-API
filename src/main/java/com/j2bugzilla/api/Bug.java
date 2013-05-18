@@ -25,27 +25,27 @@ public final class Bug {
 
 	private final Optional<Integer> id;
 	
-	private Optional<String> priority;
+	private Optional<String> priority = Optional.absent();
 	
-	private Optional<String> severity;
+	private Optional<String> severity = Optional.absent();
 	
-	private Optional<String> alias;
+	private Optional<String> alias = Optional.absent();
 	
-	private Optional<String> summary;
+	private Optional<String> summary = Optional.absent();
 	
-	private Optional<Product> product;
+	private Optional<Product> product = Optional.absent();
 	
-	private Optional<String> component;
+	private Optional<String> component = Optional.absent();
 	
-	private Optional<String> version;
+	private Optional<String> version = Optional.absent();
 	
-	private Optional<String> status;
+	private Optional<String> status = Optional.absent();
 	
-	private Optional<String> resolution;
+	private Optional<String> resolution = Optional.absent();
 	
-	private Optional<String> operatingSystem;
+	private Optional<String> operatingSystem = Optional.absent();
 	
-	private Optional<String> platform;
+	private Optional<String> platform = Optional.absent();
 	
 	//TODO Flags
 	
