@@ -13,12 +13,12 @@ import com.google.common.base.Optional;
 public interface AttachmentRepository {
 
 	/**
-	 * Posts the given {@link Attachment} to the specified set of {@link Bug bugs}. If nonexistent bugs are
-	 * specified, they will be ignored.
+	 * Posts the given {@link Attachment} to the specified{@link Bug bug}. 
 	 * @param attachment An {@code Attachment} to upload to the Bugzilla installation.
-	 * @param bugs A {@code Bug} to associate the attachment with.
+	 * @param bug A {@code Bug} to associate the attachment with.
+	 * @return An {@code int} identifying the new attachment.
 	 */
-	void attachTo(Attachment attachment, Bug bug);
+	int attachTo(Attachment attachment, Bug bug);
 	
 	/**
 	 * Retrieves an {@link Attachment} based on the given ID, or an absent {@link Optional} if the ID does not

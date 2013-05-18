@@ -16,8 +16,9 @@ public interface ProductRepository {
 	 * Creates a new {@link Product} in the remote installation, which has the properties described by the
 	 * given object.
 	 * @param product A {@code Product} to create.
+	 * @return An {@code int} identifying the newly created product.
 	 */
-	void create(Product product);
+	int create(Product product);
 	
 	/**
 	 * Returns a {@link Product} identified by the given {@code int}, or an absent {@link Optional}

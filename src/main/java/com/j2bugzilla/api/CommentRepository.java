@@ -17,8 +17,9 @@ public interface CommentRepository {
 	 * Adds a new comment to an existing bug.
 	 * @param bug A {@link Bug} to comment on.
 	 * @param comment A {@link Comment} including the text to add from the current user.
+	 * @return An {@code int} identifying the new comment.
 	 */
-	void commentOn(Bug bug, Comment comment);
+	int commentOn(Bug bug, Comment comment);
 	
 	/**
 	 * Retrieves the identified comment, or an absent {@link Optional} if no such comment exists.

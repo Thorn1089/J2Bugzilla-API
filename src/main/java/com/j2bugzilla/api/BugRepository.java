@@ -16,8 +16,9 @@ public interface BugRepository {
 	 * Creates a new {@link Bug} report in the associated installation, which has the properties described
 	 * by the given bug.
 	 * @param bug A {@code Bug} to create on a remote installation.
+	 * @return An {@code int} identifying the newly-created bug.
 	 */
-	void create(Bug bug);
+	int create(Bug bug);
 	
 	/**
 	 * Retrieves a {@link Bug} with the given ID. If no such bug is found, the return value is absent.
