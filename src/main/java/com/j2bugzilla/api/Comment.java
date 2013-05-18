@@ -15,15 +15,36 @@ public final class Comment {
 	
 	private final String text;
 	
-	public Comment(int id, String text) {
+	/**
+	 * Creates a new {@link Comment} with the given ID and content.
+	 * @param id An {@code int} uniquely identifying this comment with the remote installation.
+	 * @param text A {@code String} containing the text of this comment.
+	 */
+	public Comment(final int id, final String text) {
 		this.id = Optional.of(id);
 		this.text = text;
 	}
 	
+	/**
+	 * Creates a new {@link Comment} not associated with a remote installation.
+	 * @param text A {@code String} containing the text of this comment.
+	 */
+	public Comment(final String text) {
+		this.id = Optional.absent();
+		this.text = text;
+	}
+	
+	/**
+	 * @return An {@link Optional} {@code Integer} identifying this {@link Comment}, if it exists
+	 * within a remote installation.
+	 */
 	public Optional<Integer> getID() {
 		return id;
 	}
 	
+	/**
+	 * @return A {@code String} containing the text of this comment.
+	 */
 	public String getText() {
 		return text;
 	}
