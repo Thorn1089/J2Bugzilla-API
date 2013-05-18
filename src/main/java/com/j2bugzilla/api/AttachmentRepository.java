@@ -16,9 +16,9 @@ public interface AttachmentRepository {
 	 * Posts the given {@link Attachment} to the specified set of {@link Bug bugs}. If nonexistent bugs are
 	 * specified, they will be ignored.
 	 * @param attachment An {@code Attachment} to upload to the Bugzilla installation.
-	 * @param bugs A group of {@code Bugs} to associate the attachment with.
+	 * @param bugs A {@code Bug} to associate the attachment with.
 	 */
-	void attachTo(Attachment attachment, Bug... bugs);
+	void attachTo(Attachment attachment, Bug bug);
 	
 	/**
 	 * Retrieves an {@link Attachment} based on the given ID, or an absent {@link Optional} if the ID does not
