@@ -38,7 +38,7 @@ public final class Attachment {
 	 */
 	public Attachment(final String name, final byte[] data) {
 		this.name = name;
-		this.data = data;
+		this.data = Arrays.copyOf(data, data.length);
 		this.attachmentId = Optional.absent();
 		this.bugId = Optional.absent();
 	}
