@@ -3,6 +3,7 @@ package com.j2bugzilla.api;
 import java.net.URI;
 import java.util.ServiceLoader;
 import java.util.Set;
+import com.j2bugzilla.api.ConnectionException;
 
 /**
  * The {@code Bugzilla} class is the entry point into the API. This class adheres to the SPI contract.
@@ -11,7 +12,7 @@ import java.util.Set;
  * 
  * @author Tom
  */
-public abstract class Bugzilla {
+public abstract class Bugzilla{
 
 	/**
 	 * Loads and returns a new instance of {@link Bugzilla} to provide access to the various
@@ -34,13 +35,13 @@ public abstract class Bugzilla {
 	 * Connects to the given host.
 	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
 	 */
-	public abstract void connectTo(String host);
+	public abstract void connectTo(String host) throws ConnectionException;
 	
 	/**
 	 * Connects to the given host.
 	 * @param host A {@link URI} which points to the Bugzilla base.
 	 */
-	public abstract void connectTo(URI host);
+	public abstract void connectTo(URI host) throws ConnectionException;
 	
 	/**
 	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
@@ -49,7 +50,7 @@ public abstract class Bugzilla {
 	 * @param httpUser A {@code String} representing an HTTP Basic username.
 	 * @param httpPass A {@code String} representing an HTTP Basic password.
 	 */
-	public abstract void connectTo(String host, String httpUser, String httpPass);
+	public abstract void connectTo(String host, String httpUser, String httpPass) throws ConnectionException;
 	
 	/**
 	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
@@ -58,7 +59,7 @@ public abstract class Bugzilla {
 	 * @param httpUser A {@code String} representing an HTTP Basic username.
 	 * @param httpPass A {@code String} representing an HTTP Basic password.
 	 */
-	public abstract void connectTo(URI host, String httpUser, String httpPass);
+	public abstract void connectTo(URI host, String httpUser, String httpPass) throws ConnectionException;
 	
 	/**
 	 * Retrieves a configured instance of {@link BugRepository} to allow consumers to make queries about
