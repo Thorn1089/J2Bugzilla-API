@@ -85,14 +85,14 @@ public enum SearchBy {
 	 * designated name
 	 * @param name The name Bugzilla expects for this search limiter
 	 */
-	SearchBy(String name) {
+	private SearchBy(String name) {
 		this.name = name;
 	}
 	/**
 	 * Get the name Bugzilla expects for this search limiter
 	 * @return A <code>String</code> representing the search limiter
 	 */
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 	
