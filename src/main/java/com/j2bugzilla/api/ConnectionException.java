@@ -26,7 +26,7 @@ package com.j2bugzilla.api;
  * @author Tom
  *
  */
-public class ConnectionException extends Exception {
+public class ConnectionException extends RuntimeException {
 
 	/**
 	 * Eclipse-generated SUID

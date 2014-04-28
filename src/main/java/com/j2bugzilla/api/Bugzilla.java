@@ -35,13 +35,13 @@ public abstract class Bugzilla{
 	 * Connects to the given host.
 	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
 	 */
-	public abstract void connectTo(String host) throws ConnectionException;
+	public abstract void connectTo(String host);
 	
 	/**
 	 * Connects to the given host.
 	 * @param host A {@link URI} which points to the Bugzilla base.
 	 */
-	public abstract void connectTo(URI host) throws ConnectionException;
+	public abstract void connectTo(URI host);
 	
 	/**
 	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
@@ -50,7 +50,7 @@ public abstract class Bugzilla{
 	 * @param httpUser A {@code String} representing an HTTP Basic username.
 	 * @param httpPass A {@code String} representing an HTTP Basic password.
 	 */
-	public abstract void connectTo(String host, String httpUser, String httpPass) throws ConnectionException;
+	public abstract void connectTo(String host, String httpUser, String httpPass);
 	
 	/**
 	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
@@ -59,7 +59,7 @@ public abstract class Bugzilla{
 	 * @param httpUser A {@code String} representing an HTTP Basic username.
 	 * @param httpPass A {@code String} representing an HTTP Basic password.
 	 */
-	public abstract void connectTo(URI host, String httpUser, String httpPass) throws ConnectionException;
+	public abstract void connectTo(URI host, String httpUser, String httpPass);
 	
 	/**
 	 * Retrieves a configured instance of {@link BugRepository} to allow consumers to make queries about
