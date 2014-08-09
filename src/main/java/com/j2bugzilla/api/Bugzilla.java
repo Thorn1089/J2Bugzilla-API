@@ -1,125 +1,125 @@
 package com.j2bugzilla.api;
 
 import java.net.URI;
+import java.util.Iterator;
 import java.util.ServiceLoader;
-import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 /**
- * The {@code Bugzilla} class is the entry point into the API. This class adheres to the SPI contract.
- * Implementations should extend it to provide access to the various domain object repositories and
- * methods.
+ * The {@code Bugzilla} class is the entry point into the API. This class adheres to the SPI contract whereby
+ * implementations on the classpath will be loaded automatically, allowing you to compile only against the API
+ * interfaces defined within this library. Implementations should extend this class to fill out the various factory methods
+ * providing access to a {@link BugzillaConnection}.
+ * 
+ * Consumers will generally want to use {@link Bugzilla#connectTo(URI)} to connect to a standard Bugzilla installation. The base URI
+ * for the site should be provided to allow implementations to decide the mechanism for communicating with the remote API. For example,
+ * the default implementation will use XML-RPC, but other implementations may communicate via a RESTful interface instead.
  * 
  * @author Tom
  */
 public abstract class Bugzilla {
-
+	
 	/**
-	 * Loads and returns a new instance of {@link Bugzilla} to provide access to the various
-	 * domain repositories and method implementations. The classpath will be searched by the Java
-	 * {@link ServiceLoader} to create an appropriate SPI implementation. The first eligible implementation
-	 * will be used, so if multiple implementation bindings are present on the classpath, the subtype of
-	 * {@code Bugzilla} returned is nondeterministic.
-	 * @return A {@code Bugzilla} instance retrieved by the SPI loader.
+	 * Connects to the given host without any authentication.
+	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
+	 * @return A {@link BugzillaConnection} initialized for the given host.
 	 */
-	public static final Bugzilla newBugzilla() {
-		ServiceLoader<Bugzilla> loader = ServiceLoader.load(Bugzilla.class);
-		if(loader.iterator().hasNext()) {
-			return loader.iterator().next();
-		} else {
-			throw new IllegalStateException("No configured providers were found for Bugzilla");
-		}
+	@Nonnull
+	public static final BugzillaConnection connectTo(final String host) {
+		final Bugzilla instance = getInstance();
+		return instance.newSimpleConnection(host);
 	}
 	
 	/**
 	 * Connects to the given host.
-	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
-	 */
-	public abstract void connectTo(String host);
-	
-	/**
-	 * Connects to the given host.
 	 * @param host A {@link URI} which points to the Bugzilla base.
+	 * @return A {@link BugzillaConnection} initialized for the given host.
 	 */
-	public abstract void connectTo(URI host);
+	@Nonnull
+	public static final BugzillaConnection connectTo(final URI host) {
+		final Bugzilla instance = getInstance();
+		return instance.newSimpleConnection(host);
+	}
 	
 	/**
-	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
-	 * not log you in with Bugzilla itself.
+	 * Connects to the given host, providing credentials via HTTP Basic Auth.
+	 * These credentials do not log you into Bugzilla itself.
 	 * @param host A {@code String} which can be parsed as a URL, pointing to the Bugzilla base.
-	 * @param httpUser A {@code String} representing an HTTP Basic username.
-	 * @param httpPass A {@code String} representing an HTTP Basic password.
+	 * @param httpUser A {@code String} representing the HTTP username.
+	 * @param httpPass A {@code String} representing the HTTP password.
+	 * @return A {@link BugzillaConnection} initialized for the given host and user.
 	 */
-	public abstract void connectTo(String host, String httpUser, String httpPass);
+	@Nonnull
+	public static final BugzillaConnection connectTo(final String host, final String httpUser, final String httpPass) {
+		final Bugzilla instance = getInstance();
+		return instance.newHttpBasicConnection(host, httpUser, httpPass);
+	}
 	
 	/**
-	 * Connects to the given host, providing HTTP Basic authentication credentials. Note that this does
-	 * not log you in with Bugzilla itself.
+	 * Connects to the given host, providing credentials via HTTP Basic Auth.
+	 * These credentials do not log you into Bugzilla itself.
 	 * @param host A {@link URI} which points to the Bugzilla base.
-	 * @param httpUser A {@code String} representing an HTTP Basic username.
-	 * @param httpPass A {@code String} representing an HTTP Basic password.
+	 * @param httpUser A {@code String} representing the HTTP username.
+	 * @param httpPass A {@code String} representing the HTTP password.
+	 * @return A {@link BugzillaConnection} initialized for the given host and user.
 	 */
-	public abstract void connectTo(URI host, String httpUser, String httpPass);
+	@Nonnull
+	public static final BugzillaConnection connectTo(final URI host, final String httpUser, final String httpPass) {
+		final Bugzilla instance = getInstance();
+		return instance.newHttpBasicConnection(host, httpUser, httpPass);
+	}
+	
+	@Nonnull
+	private static Bugzilla getInstance() {
+		final ServiceLoader<Bugzilla> loader = ServiceLoader.load(Bugzilla.class);
+		final Iterator<Bugzilla> iterator = loader.iterator();
+		if(!iterator.hasNext()) {
+			throw new IllegalStateException("No configured providers were found. Please add an implementation to the classpath.");
+		}
+		final Bugzilla instance = iterator.next();
+		assert instance != null : "ServiceLoader should never return a null instance";
+		return instance;
+	}
+
+	/**
+	 * Creates a new {@link BugzillaConnection} pointing to the given URI, represented by a string.
+	 * @param uri A {@code String} which can be parsed as a URI.
+	 * @return A newly initialized connection.
+	 * @throws IllegalArgumentException If the string cannot be parsed as a URI.
+	 */
+	@Nonnull
+	protected abstract BugzillaConnection newSimpleConnection(String uri);
 	
 	/**
-	 * Retrieves a configured instance of {@link BugRepository} to allow consumers to make queries about
-	 * {@link Bug bugs}, create new bugs, or update existing bugs.
-	 * @return A {@code BugRepository} implementation provided by the bound SPI provider.
+	 * Creates a new {@link BugzillaConnection} pointing to the given URI.
+	 * @param uri A {@link URI} which points to a Bugzilla base.
+	 * @return A newly initialized connection.
 	 */
-	public abstract BugRepository getBugRepository();
+	@Nonnull
+	protected abstract BugzillaConnection newSimpleConnection(URI uri);
 	
 	/**
-	 * Retrieves a configured instance of {@link AttachmentRepository} to allow consumers to make queries
-	 * about {@link Attachment attachments} or upload new ones.
-	 * @return A {@code AttachmentRepository} implementation returned by the bound SPI provider.
+	 * Creates a new {@link BugzillaConnection} pointing to the given URI, represented by a string,
+	 * which will use HTTP Basic Auth for requests.
+	 * @param uri A {@code String} which can be parsed as a URI.
+	 * @param user A {@code String} representing the HTTP username.
+	 * @param pass A {@code String} representing the HTTP password.
+	 * @return A newly initialized connection.
+	 * @throws IllegalArgumentException If the string cannot be parsed as a URI.
 	 */
-	public abstract AttachmentRepository getAttachmentRepository();
+	@Nonnull
+	protected abstract BugzillaConnection newHttpBasicConnection(String uri, String user, String pass);
 	
 	/**
-	 * Retrieves a configured instance of {@link CommentRepository} to allow consumers to make queries
-	 * about {@link Comment comments} or add new ones.
-	 * @return A {@code CommentRepository} implementation returned by the bound SPI provider.
+	 * Creates a new {@link BugzillaConnection} pointing to the given URI, which will use HTTP Basic Auth
+	 * for requests.
+	 * @param uri A {@link URI} which points to a Bugzilla base.
+	 * @param user A {@code String} representing the HTTP username.
+	 * @param pass A {@code String} representing the HTTP password.
+	 * @return A newly initialized connection.
 	 */
-	public abstract CommentRepository getCommentRepository();
+	@Nonnull
+	protected abstract BugzillaConnection newHttpBasicConnection(URI uri, String user, String pass);
 	
-	/**
-	 * Retrieves a configured instance of {@link ProductRepository} to allow consumers to make queries
-	 * about {@link Product products}, update existing or add new ones.
-	 * @return A {@code ProductRepository} implementation returned by the bound SPI provider.
-	 */
-	public abstract ProductRepository getProductRepository();
-	
-	/**
-	 * Retrieves the legal values for the given field.
-	 * @param field A {@link GlobalFields field} to look up values for.
-	 * @return A {@code Set} of {@code Strings} which can be assigned to the given field.
-	 */
-	public abstract Set<String> getLegalValuesFor(GlobalFields field);
-	
-	/**
-	 * Gets the version of the remote Bugzilla installation.
-	 * @return A {@code String} representing the software version.
-	 */
-	public abstract String getVersion();
-	
-	/**
-	 * Retrieves the set of products the current user has access to.
-	 * @return A {@code Set} of {@link Product} objects.
-	 */
-	public abstract Set<Product> getAccessibleProducts();
-	
-	/**
-	 * Logs the given user in with the provided credentials. Subsequent requests will be made in the
-	 * context of that user's permissions. If called when a user is already logged in, the results are
-	 * implementation-specific and considered undefined.
-	 * @param user A {@code String} representing a username, typically as an email address.
-	 * @param pass A {@code String} representing the user's password.
-	 */
-	public abstract void logIn(String user, String pass);
-	
-	/**
-	 * Logs the current user out. Subsequent requests will be made anonymously. If called when no user is
-	 * logged in, the results are implementation-specific; however, implementations should attempt to ensure
-	 * this call is idempotent.
-	 */
-	public abstract void logOut();
 }
