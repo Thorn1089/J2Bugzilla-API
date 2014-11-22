@@ -81,7 +81,7 @@ public enum SearchBy {
 	
 	private final String name;
 	/**
-	 * Creates a new {@link SearchLimiter} with the
+	 * Creates a new {@link SearchBy} with the
 	 * designated name
 	 * @param name The name Bugzilla expects for this search limiter
 	 */
@@ -95,5 +95,4 @@ public enum SearchBy {
 	public String getName() {
 		return this.name;
 	}
-	
 }

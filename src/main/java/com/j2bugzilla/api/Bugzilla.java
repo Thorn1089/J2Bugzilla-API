@@ -3,6 +3,7 @@ package com.j2bugzilla.api;
 import java.net.URI;
 import java.util.ServiceLoader;
 import java.util.Set;
+import com.j2bugzilla.api.ConnectionException;
 
 /**
  * The {@code Bugzilla} class is the entry point into the API. This class adheres to the SPI contract.
@@ -11,7 +12,7 @@ import java.util.Set;
  * 
  * @author Tom
  */
-public abstract class Bugzilla {
+public abstract class Bugzilla{
 
 	/**
 	 * Loads and returns a new instance of {@link Bugzilla} to provide access to the various
