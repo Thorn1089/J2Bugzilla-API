@@ -2,8 +2,6 @@ package com.j2bugzilla.api;
 
 import java.util.Set;
 
-import com.google.common.base.Optional;
-
 /**
  * The {@code ProductRepository} allows for {@link Product} information to be retrieved, and new products
  * to be created in a remote Bugzilla installation.
@@ -21,12 +19,12 @@ public interface ProductRepository {
 	int create(Product product);
 	
 	/**
-	 * Returns a {@link Product} identified by the given {@code int}, or an absent {@link Optional}
+	 * Returns a {@link Product} identified by the given {@code int}, or throw an exception
 	 * if no such product exists.
 	 * @param id An {@code int} identifying a specific product.
 	 * @return A {@code Product} from the remote installation.
 	 */
-	Optional<Product> get(int id);
+	Product get(int id);
 	
 	/**
 	 * Retrieves the set of all products identified. If nonexistent IDs are given, they will be ignored.
@@ -37,6 +35,7 @@ public interface ProductRepository {
 	
 	/**
 	 * Updates the given {@link Product} in the remote installation to match the given instance.
+	 * The product must have an ID; otherwise, an exception is thrown.
 	 * @param product A {@code Product} to update.
 	 */
 	void update(Product product);
