@@ -3,8 +3,6 @@ package com.j2bugzilla.api;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.base.Optional;
-
 /**
  * The {@code CommentRepository} allows consumers to retrieve {@link Comment comments}
  * from existing {@link Bug} reports and add new comments to bugs.
@@ -22,11 +20,11 @@ public interface CommentRepository {
 	int commentOn(Bug bug, Comment comment);
 	
 	/**
-	 * Retrieves the identified comment, or an absent {@link Optional} if no such comment exists.
+	 * Retrieves the identified comment, or throws an exception if no such comment exists.
 	 * @param id An {@code int} identifying a comment.
 	 * @return A {@link Comment} if one exists.
 	 */
-	Optional<Comment> get(int id);
+	Comment get(int id);
 	
 	/**
 	 * Returns a {@code Set} of comments identified by the given IDs. If nonexistent IDs are specified,
@@ -38,7 +36,7 @@ public interface CommentRepository {
 	
 	/**
 	 * Gets an ordered {@code List} of comments representing the chronological thread of discusson on
-	 * a single bug.
+	 * a single bug. The provided bug must have an ID; otherwise, an exception is thrown.
 	 * @param bug A {@link Bug} to retrieve the discussion history for.
 	 * @return A list of {@link Comment} objects.
 	 */
