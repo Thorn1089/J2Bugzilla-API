@@ -2,8 +2,6 @@ package com.j2bugzilla.api;
 
 import java.util.Set;
 
-import com.google.common.base.Optional;
-
 /**
  * The {@code BugRepository} interface defines a CRUD-style class which allows {@link Bug Bugs} to be
  * created, modified, and searched from a particular Bugzilla installation.
@@ -21,11 +19,11 @@ public interface BugRepository {
 	int create(Bug bug);
 	
 	/**
-	 * Retrieves a {@link Bug} with the given ID. If no such bug is found, the return value is absent.
+	 * Retrieves a {@link Bug} with the given ID. If no such bug is found, an exception is thrown.
 	 * @param id An {@code int} identifying a bug.
-	 * @return An {@link Optional} reference to a {@code Bug}.
+	 * @return The {@code Bug} uniquely identified by the provided ID.
 	 */
-	Optional<Bug> get(int id);
+	Bug get(int id);
 	
 	/**
 	 * Retrieves all {@link Bug Bugs} matching the given set of IDs. If a given ID does not match a bug, it
@@ -37,6 +35,7 @@ public interface BugRepository {
 	
 	/**
 	 * Synchronizes the state of a {@link Bug} with the associated Bugzilla instance.
+	 * The provided bug must have an ID; otherwise, an exception is thrown.
 	 * @param bug A {@code Bug} to update.
 	 */
 	void update(Bug bug);
